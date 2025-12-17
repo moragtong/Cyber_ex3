@@ -180,15 +180,16 @@ int32_t main() {
     int32_t sockfd = create_socket();
 
     _connect(sockfd, WEB_SERVER_ADDR, 80);
-    const char header[] =
-    "POST /task2stored.php? HTTP/1.1\r\n"
+    char header[1024];
+    memset(header, 0, sizeof(header));
+
+    sprintf(header, "POST /task2stored.php? HTTP/1.1\r\n"
         "Host: " STR(WEB_SERVER_ADDR) "\r\n"
         "Content-Type: application/x-www-form-urlencoded\r\n"
-        "Content-Length: " STR(sizeof(PAYLOAD)) "\r\n"
+        "Content-Length: %lu\r\n"
         "Connection: close\r\n"
         "\r\n"
-        PAYLOAD
-    ;
+        PAYLOAD, sizeof(PAYLOAD));
     puts(header);
 
     _send(sockfd, header, sizeof(header) - 1);
