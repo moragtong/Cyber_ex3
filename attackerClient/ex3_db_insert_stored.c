@@ -191,7 +191,7 @@ int32_t main() {
     _send(sockfd, header, sizeof(header));
 
     char buf[1024];
-    memset(buf, sizeof(buf), 0);
+    memset(buf, 0, sizeof(buf));
 
     _recv(sockfd, buf, sizeof(buf));
 
