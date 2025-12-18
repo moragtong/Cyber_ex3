@@ -6,7 +6,9 @@
 #include <stdbool.h>
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <netinet/in.h>
 #include <unistd.h>
+#include <netinet/ip.h>
 
 #define __MY_DEBUG__
 
