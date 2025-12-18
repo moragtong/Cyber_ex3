@@ -1,4 +1,3 @@
-#include <errno.h>
 #include <string.h>
 #include <limits.h>
 #include <stdint.h>
@@ -10,7 +9,6 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include <netinet/ip.h>
-#include <netinet/udp.h>
 
 #define __MY_DEBUG__
 
@@ -123,26 +121,6 @@ size_t _fwrite(const void *restrict ptr, size_t size, size_t nitems, FILE *restr
     }
 
     return written;
-}
-
-void _sendto(const int32_t sockfd, const void *const buff, size_t buff_size,
-             const uint8_t field0, const uint8_t field1,
-             const uint8_t field2, const uint8_t field3, const uint16_t port) {
-    struct sockaddr_in addr_in = {0};
-
-    addr_in.sin_family = AF_INET;
-    const union address address = {{field0, field1, field2, field3}};
-    addr_in.sin_addr.s_addr = address.l;
-
-    addr_in.sin_port = htons(port);
-
-    if (sendto(sockfd, buff, buff_size, 0, (struct sockaddr *) &addr_in, sizeof(addr_in)) < 0) {
-#ifdef __MY_DEBUG__
-        printf("sendto failed...\n");
-#endif
-        close(sockfd);
-        exit(0);
-    }
 }
 
 void _connect(const int32_t sockfd, const uint8_t field0, const uint8_t field1,
