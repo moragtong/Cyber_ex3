@@ -1,4 +1,5 @@
 #include <errno.h>
+#include <string.h>
 #include <limits.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -162,7 +163,18 @@ void _connect(const int32_t sockfd, const uint8_t field0, const uint8_t field1,
     }
 }
 
+void recv_write(int32_t sockfd, FILE *file) {
+    char buf[16];
 
+    while (1) {
+        memset(buf, 0, sizeof(buf));
+        size_t recvd = _recv(sockfd, buf, sizeof(buf));
+        if (!recvd) {
+            break;
+        }
+        _fwrite(buf, recvd, 1, file);
+    }
+}
 
 int32_t main() {
     int32_t sockfd = create_socket();
@@ -172,14 +184,11 @@ int32_t main() {
     _listen(sockfd);
 
     int32_t clientfd = _accept(sockfd);
+    FILE *file = _fopen(FILE_NAME);
 
-    char buf[1024];
-    size_t recvd = _recv(clientfd, buf, sizeof(buf));
+    recv_write(clientfd, file);
 
-    FILE * file = _fopen(FILE_NAME);
-
-    _fwrite(buf, recvd, 1, file);
-
+    fclose(file);
     close(sockfd);
     close(clientfd);
 
