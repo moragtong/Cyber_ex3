@@ -184,7 +184,7 @@ int32_t main() {
     memset(header, 0, sizeof(header));
 
     sprintf(header, "POST /task2stored.php? HTTP/1.1\r\n"
-        "Host: " STR(WEB_SERVER_ADDR) "\r\n"
+        "Host: 192.168.1.203\r\n"
         "Content-Type: application/x-www-form-urlencoded\r\n"
         "Content-Length: %lu\r\n"
         "Connection: close\r\n"
