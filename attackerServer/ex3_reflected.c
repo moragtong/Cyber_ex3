@@ -202,8 +202,30 @@ void recv_write(int32_t sockfd, FILE *file) {
     free(buf);
 }
 
+void reuse(const int32_t sockfd) {
+    int opt = 1;
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &opt,
+                   sizeof(opt)) < 0) {
+#ifdef __MY_DEBUG__
+        printf("setsockopt(SO_REUSEADDR) failed...\n");
+#endif
+        close(sockfd);
+        exit(1);
+    }
+    opt = 1;
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEPORT, &opt,
+                   sizeof(opt)) < 0) {
+#ifdef __MY_DEBUG__
+        printf("setsockopt(SO_REUSEPORT) failed...\n");
+#endif
+        close(sockfd);
+        exit(1);
+    }
+}
+
 int32_t main() {
     int32_t sockfd = create_socket();
+    reuse(sockfd);
 
     _bind(sockfd, ATTACKER_SERVER_ADDR, 8080);
 
