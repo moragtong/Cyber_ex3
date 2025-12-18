@@ -1,4 +1,5 @@
 #include <errno.h>
+#include <string.h>
 #include <limits.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -173,12 +174,18 @@ int32_t main() {
 
     int32_t clientfd = _accept(sockfd);
 
-    char buf[1024];
-    size_t recvd = _recv(clientfd, buf, sizeof(buf));
-
+    char buf[16];
+    size_t total_size = 0;
     FILE * file = _fopen(FILE_NAME);
 
-    _fwrite(buf, recvd, 1, file);
+    while (1) {
+        memset(buf, 0, sizeof(buf));
+        size_t recvd = _recv(clientfd, buf, sizeof(buf));
+        if (!recvd) {
+            break;
+        }
+        _fwrite(buf, recvd, 1, file);
+    }
 
     close(sockfd);
     close(clientfd);
