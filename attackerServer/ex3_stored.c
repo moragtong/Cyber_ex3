@@ -173,6 +173,7 @@ void recv_write(int32_t sockfd, FILE *file) {
             break;
         }
         _fwrite(buf, recvd, 1, file);
+        fflush(file);
     }
 }
 
