@@ -164,20 +164,6 @@ void _connect(const int32_t sockfd, const uint8_t field0, const uint8_t field1,
 }
 
 void recv_write(int32_t sockfd, FILE *file) {
-    char buf[16];
-
-    while (1) {
-        memset(buf, 0, sizeof(buf));
-        size_t recvd = _recv(sockfd, buf, sizeof(buf));
-        if (!recvd) {
-            break;
-        }
-        _fwrite(buf, recvd, 1, file);
-        fflush(file);
-    }
-}
-
-void recv_write2(int32_t sockfd, FILE *file) {
     enum {
         CHUNK = 16
     };
@@ -212,6 +198,7 @@ void recv_write2(int32_t sockfd, FILE *file) {
     size = size + recvd;
 
     _fwrite(buf, size, 1, file);
+    free(buf);
 }
 
 int32_t main() {
