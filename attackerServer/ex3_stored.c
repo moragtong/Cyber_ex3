@@ -190,8 +190,8 @@ void recv_write(int32_t sockfd, FILE *file) {
         }
     }
     char Content_Length[] = "Content-Length: ";
-    size_t content_len = atoi(strstr(buf, Content_Length) + sizeof(Content_Length)-1);
-    size_t body_recvd = size - (header_end+4-buf); //how much we already received from the body after the header ends
+    size_t content_len = (size_t)atoi(strstr(buf, Content_Length) + sizeof(Content_Length)-1);
+    size_t body_recvd = size - (size_t)(header_end+4-buf); //how much we already received from the body after the header ends
     size_t body_left = content_len - body_recvd;
     buf = realloc(buf, body_left+size+1);
     recvd = _recv(sockfd, buf + size, body_left);
