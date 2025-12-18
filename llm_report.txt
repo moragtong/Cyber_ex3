@@ -1,0 +1,4 @@
+We did not use any llms for writing code. We only use llms in order to understand concepts and technical details, with prompts such as:
+"What is the difference between await and then() in JS fetch"
+"How is a # treated as in a url by the browser?"
+"what kinds of JS event handlers exist"
