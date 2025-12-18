@@ -12,6 +12,8 @@
 #include <netinet/ip.h>
 #include <netinet/udp.h>
 
+#define __MY_DEBUG__
+
 
 #define ATTACKER_SERVER_ADDR 192, 168, 1, 201
 #define ATTACKER_CLIENT_ADDR 192, 168, 1, 202
