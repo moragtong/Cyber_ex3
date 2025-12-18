@@ -190,7 +190,6 @@ int32_t main() {
         "Connection: close\r\n"
         "\r\n"
         PAYLOAD, sizeof(PAYLOAD));
-    puts(header);
 
     _send(sockfd, header, sizeof(header) - 1);
 
@@ -198,8 +197,6 @@ int32_t main() {
     memset(buf, 0, sizeof(buf));
 
     _recv(sockfd, buf, sizeof(buf));
-
-    puts(buf);
 
     close(sockfd);
 }
