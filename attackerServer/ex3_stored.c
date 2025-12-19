@@ -10,9 +10,6 @@
 #include <unistd.h>
 #include <netinet/ip.h>
 
-#define __MY_DEBUG__
-
-
 #define ATTACKER_SERVER_ADDR 192, 168, 1, 201
 #define ATTACKER_CLIENT_ADDR 192, 168, 1, 202
 #define WEB_SERVER_ADDR 192, 168, 1, 203
